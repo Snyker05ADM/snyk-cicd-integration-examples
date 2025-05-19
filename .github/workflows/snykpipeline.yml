@@ -10,34 +10,20 @@ on:
 jobs:
   snyk:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: GitHub/github-actions/node
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: npm install
+      - name: Snyk Auth
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
       - name: Run Snyk Test
-        uses: snyk/actions/node@master
+        run: snyk test --file=GitHub/package.json --package-manager=npm
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: test
-          path: GitHub/github-actions/node
 
       - name: Run Snyk Monitor
-        uses: snyk/actions/node@master
+        run: snyk monitor --file=GitHub/package.json --package-manager=npm
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: monitor
-          path: GitHub/github-actions/node
