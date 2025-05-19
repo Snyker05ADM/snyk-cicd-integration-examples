@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: github-actions/node
+        working-directory: GitHub/github-actions/node
 
     steps:
       - name: Checkout code
@@ -32,7 +32,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
-          path: github-actions/node
+          path: GitHub/github-actions/node
 
       - name: Run Snyk Monitor
         uses: snyk/actions/node@master
@@ -40,4 +40,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: monitor
-          path: github-actions/node
+          path: GitHub/github-actions/node
