@@ -1,4 +1,4 @@
-name: Snyk CI/CD Integration
+name: Snyk Goof Scan
 
 on:
   push:
@@ -19,11 +19,11 @@ jobs:
         run: npm install -g snyk
 
       - name: Run Snyk Test
-        run: snyk test --file=GitHub/package.json --package-manager=npm
+        run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Run Snyk Monitor
-        run: snyk monitor --file=GitHub/package.json --package-manager=npm
+        run: snyk monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
