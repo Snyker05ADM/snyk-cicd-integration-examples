@@ -5,12 +5,14 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  workflow_dispatch: 
-
+  workflow_dispatch:
 
 jobs:
   snyk:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: node
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -29,6 +31,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
+          path: node
 
       - name: Run Snyk Monitor
         uses: snyk/actions/node@master
@@ -36,5 +39,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: monitor
-
-         # Triggering the worflow
+          path: node
